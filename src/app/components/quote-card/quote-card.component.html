@@ -1,0 +1,15 @@
+<div class="w-screen max-w-lg flex bg-gray-400 rounded-2xl p-3 gap-4">
+  <div class="flex flex-col justify-between w-full gap-2">
+    <div
+      [ngClass]="[highlight ? 'text-blue-500' : 'text-black']"
+    >{{ quote.text }}</div>
+    <div
+      [ngClass]="[editable ? 'text-black' : 'text-gray-600']"
+      class="text-sm self-end">{{ quote.author }}</div>
+  </div>
+  <button *ngIf="editable"
+    (click)="onDelete()"
+    class="flex items-center justify-center p-4">
+    <ion-icon class="text-blue-400" size="large" name="trash-outline"></ion-icon>
+  </button>
+</div>

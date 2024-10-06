@@ -1,20 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
+    <ion-title slot="start">
+      Citas
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        [routerLink]="['/configuration']">
+        <ion-icon icon="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="w-full h-full flex justify-center items-center">
+    <app-quote-card
+      [highlight]="true"
+      *ngIf="loaded && quote"
+      [quote]="quote"
+    ></app-quote-card>
+    <app-quote-skeleton *ngIf="!loaded">
+  </app-quote-skeleton>
+  <ion-fab class="p-8" slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/quotes']">
+      <ion-icon class="text-white" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   </div>
 </ion-content>

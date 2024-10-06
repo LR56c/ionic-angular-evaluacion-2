@@ -1,0 +1,8 @@
+<div class="w-full h-full max-w-lg flex flex-col items-start gap-3 p-3">
+  <app-quote-card
+    *ngFor="let q of quotes | keyvalue: compareByQuoteDate"
+    [quote]="q.value"
+    [editable]="true"
+    (deleteQuote)="onDelete($event)"
+  ></app-quote-card>
+</div>

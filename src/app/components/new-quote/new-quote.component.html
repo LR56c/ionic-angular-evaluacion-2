@@ -1,0 +1,20 @@
+<div class="w-full h-full max-w-lg flex flex-col items-start gap-3 p-3">
+  <div>Crea una nueva cita</div>
+  <form class="w-full flex flex-col gap-3"
+    [formGroup]="quoteForm">
+    <ion-textarea errorText="Ingrese una cita con almenos 5 caracteres"
+      required
+      type="text"
+      formControlName="quote"
+      label="Cita"></ion-textarea>
+    <ion-input errorText="Ingrese nombre autor con almenos 2 caracteres"
+      required
+      type="text"
+      formControlName="author"
+      label="Autor"
+      placeholder="Mahatma Gandhi"></ion-input>
+  </form>
+  <ion-button (click)="addQuote()"
+    fill="clear">Agregar +
+  </ion-button>
+</div>
