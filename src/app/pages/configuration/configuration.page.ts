@@ -17,7 +17,6 @@ import {
 } from '@ionic/angular/standalone'
 import { addIcons } from 'ionicons'
 import { arrowBackOutline } from 'ionicons/icons'
-import { Configuration } from 'src/app/services/configuration/configuration'
 import { ConfigurationService } from 'src/app/services/configuration/configuration.service'
 
 @Component( {
@@ -41,8 +40,7 @@ export class ConfigurationPage implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.canDeleteInicialQuote = await this.configurationService.get<boolean>(
-      Configuration.enum.DELETE_INITIAL_QUOTE ) ?? false
+    this.canDeleteInicialQuote = await this.configurationService.get<boolean>( 'DELETE_INITIAL_QUOTE' ) ?? false
   }
 
   canDeleteInicialQuote: boolean = false
@@ -54,7 +52,6 @@ export class ConfigurationPage implements OnInit {
 
   async onChange( $event: CustomEvent ): Promise<void> {
     const value = $event.detail.checked
-    await this.configurationService.set(
-      Configuration.enum.DELETE_INITIAL_QUOTE, value.toString() )
+    await this.configurationService.set( 'DELETE_INITIAL_QUOTE', value.toString() )
   }
 }

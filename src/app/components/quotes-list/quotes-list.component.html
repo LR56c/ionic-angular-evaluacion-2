@@ -1,8 +1,14 @@
 <div class="w-full h-full max-w-lg flex flex-col items-start gap-3 p-3">
+  <ng-container *ngIf="loaded">
   <app-quote-card
     *ngFor="let q of quotes"
     [quote]="q"
     [editable]="true"
     (deleteQuote)="onDelete($event)"
   ></app-quote-card>
+  </ng-container>
+  <ng-container
+    *ngIf="!loaded">
+    <app-quote-skeleton *ngFor="let i of [0,1,2,3,4]"></app-quote-skeleton>
+  </ng-container>
 </div>

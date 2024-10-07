@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences'
-import { configurations } from 'src/app/services/configuration/configuration'
+import {
+  configurations,
+  ConfigurationType
+} from 'src/app/services/configuration/configuration'
 
 // await Preferences.set({
 //   key: "ORDENAR_ALFABETICAMENTE",
@@ -19,13 +22,13 @@ export class ConfigurationService {
 
   configMap = new Set<string>(configurations)
 
-  async set(key: string, value: string): Promise<boolean> {
+  async set(key: ConfigurationType, value: string): Promise<boolean> {
     if(!this.configMap.has(key)) return false
     await Preferences.set({ key, value })
     return true
   }
 
-  async get<T>(key: string): Promise<T | null> {
+  async get<T>(key: ConfigurationType): Promise<T | null> {
     if(!this.configMap.has(key)) return null
     const recover = await Preferences.get({ key })
     return recover.value as T | null

@@ -48,25 +48,23 @@ export class QuotesService {
 
   private async getQuotes(): Promise<void> {
     const quotes        = await this.repository.getQuotes()
-    const orderedQuotes = quotes.sort( ( a, b ) => a.createdAt.getTime() - b.createdAt.getTime() )
-    this._quotes        = new Map( orderedQuotes.map( quote => [ quote.id, quote ] ) )
+    const orderedQuotes = quotes.sort(
+      ( a, b ) => a.createdAt.getTime() - b.createdAt.getTime() )
+    this._quotes        =
+      new Map( orderedQuotes.map( quote => [ quote.id, quote ] ) )
     this.quotesSubject.next( this._quotes )
   }
 
   async addQuote( quote: Quote ): Promise<void> {
-    const result = await this.repository.addQuote( quote )
-    if ( result ) {
-      this._quotes.set( quote.id, quote )
-      this.quotesSubject.next( this._quotes )
-    }
+    await this.repository.addQuote( quote )
+    this._quotes.set( quote.id, quote )
+    this.quotesSubject.next( this._quotes )
   }
 
   async deleteQuote( id: string ): Promise<void> {
-    const result = await this.repository.deleteQuote( id )
-    if ( result ) {
-      this._quotes.delete( id )
-      this.quotesSubject.next( this._quotes )
-    }
+    await this.repository.deleteQuote( id )
+    this._quotes.delete( id )
+    this.quotesSubject.next( this._quotes )
   }
 
   async getQuote( id: string ): Promise<Quote | undefined> {
@@ -75,11 +73,9 @@ export class QuotesService {
   }
 
   async updateQuote( quote: Quote ): Promise<void> {
-    const result = await this.repository.updateQuote( quote )
-    if ( result ) {
-      this._quotes.set( quote.id, quote )
-      this.quotesSubject.next( this._quotes )
-    }
+    await this.repository.updateQuote( quote )
+    this._quotes.set( quote.id, quote )
+    this.quotesSubject.next( this._quotes )
   }
 
   async randomQuote(): Promise<Quote> {

@@ -7,6 +7,7 @@ import {
   OnInit
 } from '@angular/core'
 import { QuoteCardComponent } from 'src/app/components/quote-card/quote-card.component'
+import { QuoteSkeletonComponent } from 'src/app/components/quote-skeleton/quote-skeleton.component'
 import { Quote } from 'src/app/models/quote'
 import { QuotesService } from 'src/app/services/quotes/quotes.service'
 
@@ -14,9 +15,10 @@ import { QuotesService } from 'src/app/services/quotes/quotes.service'
   selector   : 'app-quotes-list',
   templateUrl: './quotes-list.component.html',
   styleUrls  : [ './quotes-list.component.scss' ],
-  imports    : [
+  imports: [
     QuoteCardComponent,
-    CommonModule
+    CommonModule,
+    QuoteSkeletonComponent
   ],
   standalone : true
 } )
@@ -25,10 +27,13 @@ export class QuotesListComponent implements OnInit {
   constructor( private readonly quotesService: QuotesService ) { }
 
   quotes: Quote[] = []
+  loaded: boolean = false
 
   async ngOnInit(): Promise<void> {
     this.quotesService.quotes$.subscribe( async (quotes) => {
+      this.loaded = false
       this.quotes = Array.from(quotes.values())
+      this.loaded = true
     })
   }
 

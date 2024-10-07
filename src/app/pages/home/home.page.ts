@@ -25,7 +25,6 @@ import {
 import { QuoteCardComponent } from 'src/app/components/quote-card/quote-card.component'
 import { QuoteSkeletonComponent } from 'src/app/components/quote-skeleton/quote-skeleton.component'
 import { Quote } from 'src/app/models/quote'
-import { Configuration } from 'src/app/services/configuration/configuration'
 import { ConfigurationService } from 'src/app/services/configuration/configuration.service'
 import { QuotesService } from 'src/app/services/quotes/quotes.service'
 
@@ -55,8 +54,7 @@ export class HomePage implements OnInit, ViewWillEnter {
   canDeleteInicialQuote: boolean = false
 
   async ionViewWillEnter(): Promise<void> {
-    this.canDeleteInicialQuote = await this.configurationService.get<boolean>(
-      Configuration.enum.DELETE_INITIAL_QUOTE ) ?? false
+    this.canDeleteInicialQuote = await this.configurationService.get<boolean>( 'DELETE_INITIAL_QUOTE' ) ?? false
   }
 
   async ngOnInit(): Promise<void> {
