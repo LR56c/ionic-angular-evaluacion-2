@@ -24,20 +24,20 @@ export class QuotesListComponent implements OnInit {
 
   constructor( private readonly quotesService: QuotesService ) { }
 
-  quotes: Map<string, Quote> = new Map()
+  quotes: Quote[] = []
 
   async ngOnInit(): Promise<void> {
-    this.quotesService.quotes.subscribe( ( quotes ) => {
-      this.quotes = quotes
-    } )
+    this.quotesService.quotes$.subscribe( async (quotes) => {
+      this.quotes = Array.from(quotes.values())
+    })
   }
 
-   onDelete( id: string ): void {
-    console.log( 'Deleting quote with id:', id )
-    this.quotesService.deleteQuote( id )
+  async onDelete( id: string ): Promise<void> {
+    await this.quotesService.deleteQuote( id )
   }
 
-  compareByQuoteDate( a: KeyValue<string, Quote>, b: KeyValue<string, Quote> ): number {
-    return a.value.createdAt.getTime() - b.value.createdAt.getTime()
-  }
+  // compareByQuoteDate( a: KeyValue<string, Quote>,
+  //   b: KeyValue<string, Quote> ): number {
+  //   return a.value.createdAt.getTime() - b.value.createdAt.getTime()
+  // }
 }

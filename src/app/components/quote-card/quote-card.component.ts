@@ -4,6 +4,7 @@ import {
   NgIf
 } from '@angular/common'
 import {
+  booleanAttribute,
   Component,
   EventEmitter,
   Input,
@@ -27,8 +28,8 @@ import {
 })
 export class QuoteCardComponent  {
 
-  @Input() highlight : boolean = false
-  @Input() editable : boolean = false
+  @Input() highlight : boolean                                 = false
+  @Input( { transform: booleanAttribute } ) editable : boolean = false
   @Input() quote !: Quote
   @Output() deleteQuote = new EventEmitter<string>()
 

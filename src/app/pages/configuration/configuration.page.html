@@ -1,13 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>configuration</ion-title>
+    <ion-icon (click)="navigateBack()"
+      size="large"
+      slot="start"
+      name="arrow-back-outline"></ion-icon>
+    <ion-title>Configuracion</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">configuration</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="w-full h-full flex flex-col p-4">
+    <ion-toggle (ionChange)="onChange($event)" [checked]="canDeleteInicialQuote">Permitir eliminar citas en el inicio</ion-toggle>
+  </div>
 </ion-content>

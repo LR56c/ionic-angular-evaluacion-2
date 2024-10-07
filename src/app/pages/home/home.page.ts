@@ -14,7 +14,8 @@ import {
   IonIcon,
   IonRouterLink,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  ViewWillEnter
 } from '@ionic/angular/standalone'
 import { addIcons } from 'ionicons'
 import {
@@ -24,6 +25,8 @@ import {
 import { QuoteCardComponent } from 'src/app/components/quote-card/quote-card.component'
 import { QuoteSkeletonComponent } from 'src/app/components/quote-skeleton/quote-skeleton.component'
 import { Quote } from 'src/app/models/quote'
+import { Configuration } from 'src/app/services/configuration/configuration'
+import { ConfigurationService } from 'src/app/services/configuration/configuration.service'
 import { QuotesService } from 'src/app/services/quotes/quotes.service'
 
 @Component( {
@@ -35,8 +38,12 @@ import { QuotesService } from 'src/app/services/quotes/quotes.service'
     IonButton, IonRouterLink, RouterLink, IonButtons, IonIcon, IonFab,
     IonFabButton, QuoteCardComponent, QuoteSkeletonComponent ]
 } )
-export class HomePage implements OnInit {
-  constructor( private readonly quotesService: QuotesService ) {
+export class HomePage implements OnInit, ViewWillEnter {
+  constructor(
+    private readonly quotesService: QuotesService,
+    private configurationService: ConfigurationService
+  )
+  {
     addIcons( {
       settingsOutline,
       add
@@ -44,10 +51,27 @@ export class HomePage implements OnInit {
   }
 
   quote ?: Quote
-  loaded: boolean = false
+  loaded: boolean                = false
+  canDeleteInicialQuote: boolean = false
+
+  async ionViewWillEnter(): Promise<void> {
+    this.canDeleteInicialQuote = await this.configurationService.get<boolean>(
+      Configuration.enum.DELETE_INITIAL_QUOTE ) ?? false
+  }
 
   async ngOnInit(): Promise<void> {
+    await this.loadQuote()
+  }
+
+  async loadQuote(): Promise<void> {
+    this.loaded = false
     this.quote  = await this.quotesService.randomQuote()
     this.loaded = true
+  }
+
+
+  async onDelete( id: string ): Promise<void> {
+    await this.quotesService.deleteQuote( id )
+    await this.loadQuote()
   }
 }

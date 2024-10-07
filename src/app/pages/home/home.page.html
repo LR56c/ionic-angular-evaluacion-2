@@ -17,7 +17,9 @@
     <app-quote-card
       [highlight]="true"
       *ngIf="loaded && quote"
+      (deleteQuote)="onDelete($event)"
       [quote]="quote"
+      [editable]="canDeleteInicialQuote"
     ></app-quote-card>
     <app-quote-skeleton *ngIf="!loaded">
   </app-quote-skeleton>

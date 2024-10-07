@@ -30,13 +30,13 @@ export class NewQuoteComponent  {
     author : new FormControl('', [Validators.required, Validators.minLength(2)]),
   })
 
-  public addQuote(): void {
+  async addQuote(): Promise<void> {
     if(!this.quoteForm.valid){
       this.quoteForm.markAllAsTouched()
       return
     }
     const quote = quoteMapper(this.quoteForm.value)
-    this.quotesService.addQuote(quote)
+    await this.quotesService.addQuote(quote)
     this.quoteForm.reset()
   }
 
