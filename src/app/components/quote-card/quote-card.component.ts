@@ -29,8 +29,10 @@ import {
 export class QuoteCardComponent  {
 
   @Input() highlight : boolean                                 = false
-  @Input( { transform: booleanAttribute } ) editable : boolean = false
-  @Input() quote !: Quote
+  @Input() editable : boolean = false
+  @Input({
+    required: true
+  }) quote !: Quote
   @Output() deleteQuote = new EventEmitter<string>()
 
   constructor() {

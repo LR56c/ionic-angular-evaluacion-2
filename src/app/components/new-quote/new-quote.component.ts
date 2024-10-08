@@ -39,12 +39,4 @@ export class NewQuoteComponent  {
     await this.quotesService.addQuote(quote)
     this.quoteForm.reset()
   }
-
-  get quote() {
-    return this.quoteForm.get('quote')
-  }
-
-  get author() {
-    return this.quoteForm.get('author')
-  }
 }
