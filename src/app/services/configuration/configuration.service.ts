@@ -5,14 +5,6 @@ import {
   ConfigurationType
 } from 'src/app/services/configuration/configuration'
 
-// await Preferences.set({
-//   key: "ORDENAR_ALFABETICAMENTE",
-//   value: "true"
-// })
-
-// const deboOrdenar = await Preferences.get({
-//   key: "ORDENAR_ALFABETICAMENTE"
-// })
 @Injectable({
   providedIn: 'root'
 })

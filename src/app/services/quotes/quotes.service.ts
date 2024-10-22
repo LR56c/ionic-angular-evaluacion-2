@@ -18,7 +18,7 @@ export class QuotesService {
 
   async init(): Promise<void> {
     await this.repository.init()
-    await this.seedQuotes()
+    // await this.seedQuotes()
   }
 
   private _quotes: Map<string, Quote>                        = new Map()
@@ -84,6 +84,4 @@ export class QuotesService {
     await this.addQuote( quote )
     return quote
   }
-
-
 }
